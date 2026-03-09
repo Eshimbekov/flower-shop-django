@@ -1,0 +1,121 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Свежие цветы с доставкой</h1>
+        <p>Красивые букеты, нежные композиции и подарки для особенных моментов</p>
+        <a href="{% url 'catalog' %}" class="btn">Перейти в каталог</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2>Категории</h2>
+        <div class="grid">
+            {% for category in categories %}
+                <div class="card">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width:100%; height:220px; object-fit:cover; border-radius:16px; margin-bottom:12px;">
+                    {% endif %}
+                    <h3>{{ category.name }}</h3>
+                    <a href="{% url 'catalog' %}?category={{ category.slug }}" class="btn">Смотреть</a>
+                </div>
+            {% empty %}
+                <p>Категории пока не добавлены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2>Популярные букеты</h2>
+        <div class="grid">
+            {% for product in popular_products %}
+                <div class="card product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% endif %}
+                    <h3>{{ product.title }}</h3>
+                    <p>{{ product.price }} сом</p>
+                    <a href="{% url 'product_detail' product.slug %}" class="btn">Подробнее</a>
+                </div>
+            {% empty %}
+                <p>Популярные товары пока не добавлены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <h2>Почему выбирают нас</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Свежие цветы</h3>
+                <p>Мы собираем букеты только из свежих цветов, чтобы они радовали как можно дольше.</p>
+            </div>
+            <div class="card">
+                <h3>Быстрая доставка</h3>
+                <p>Доставляем заказы точно ко времени и бережно перевозим композиции.</p>
+            </div>
+            <div class="card">
+                <h3>Красивое оформление</h3>
+                <p>Каждый букет оформляется аккуратно и эстетично, чтобы подарок выглядел идеально.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2>Акции</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Скидка 10% на первый заказ</h3>
+                <p>Оформите первый заказ на сайте и получите приятную скидку.</p>
+            </div>
+            <div class="card">
+                <h3>Бесплатная открытка</h3>
+                <p>Добавим открытку с вашим текстом к любому букету.</p>
+            </div>
+            <div class="card">
+                <h3>Подарочная упаковка</h3>
+                <p>При заказе авторской композиции — упаковка в подарок.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2>Как оформить заказ</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>1. Выберите букет</h3>
+                <p>Перейдите в каталог и выберите понравившуюся композицию.</p>
+            </div>
+            <div class="card">
+                <h3>2. Добавьте в корзину</h3>
+                <p>Укажите нужные товары и перейдите к оформлению заказа.</p>
+            </div>
+            <div class="card">
+                <h3>3. Оформите доставку</h3>
+                <p>Введите данные, адрес и удобное время доставки.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="card" style="text-align:center; padding:40px 20px;">
+            <h2>Порадуйте близких уже сегодня</h2>
+            <p>Выберите красивый букет и оформите доставку за пару минут.</p>
+            <a href="{% url 'catalog' %}" class="btn">Перейти в каталог</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

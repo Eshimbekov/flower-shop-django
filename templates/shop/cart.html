@@ -1,0 +1,61 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1>Корзина</h1>
+
+        {% if cart_items %}
+            <div class="cart-list">
+                {% for item in cart_items %}
+                    <div class="card cart-item">
+                        <div class="cart-item-image">
+                            {% if item.image %}
+                                <img src="{{ item.image }}" alt="{{ item.title }}">
+                            {% endif %}
+                        </div>
+
+                        <div class="cart-item-info">
+                            <h3>{{ item.title }}</h3>
+                            <p>Цена: {{ item.price }} сом</p>
+                            <p>Количество: {{ item.quantity }}</p>
+                            <p>Сумма: {{ item.subtotal }} сом</p>
+
+                            <div class="cart-actions">
+                                <form method="post" action="{% url 'update_cart' item.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="increase">
+                                    <button type="submit" class="btn">+</button>
+                                </form>
+
+                                <form method="post" action="{% url 'update_cart' item.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="decrease">
+                                    <button type="submit" class="btn">-</button>
+                                </form>
+
+                                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="cart-summary card">
+    <h2>Итого: {{ total_price }} сом</h2>
+
+    <div class="cart-summary-actions">
+        <a href="{% url 'checkout' %}" class="btn">Оформить заказ</a>
+        <a href="{% url 'catalog' %}" class="btn btn-light">Продолжить покупки</a>
+        <a href="{% url 'home' %}" class="btn btn-light">На главную</a>
+    </div>
+</div>
+        {% else %}
+            <p>Корзина пока пуста.</p>
+            <a href="{% url 'catalog' %}" class="btn">Перейти в каталог</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+
+        <div class="product-nav">
+            <a href="{% url 'home' %}" class="btn btn-light">Главная</a>
+            <a href="{% url 'catalog' %}" class="btn btn-light">Каталог</a>
+        </div>
+
+        <div class="product-detail">
+            <div class="product-image">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                {% endif %}
+            </div>
+
+            <div class="product-info">
+                <h1>{{ product.title }}</h1>
+                <p><strong>Цена:</strong> {{ product.price }} сом</p>
+                <p><strong>Размер:</strong> {{ product.get_size_display }}</p>
+                <p><strong>Повод:</strong> {{ product.get_occasion_display }}</p>
+                <p><strong>Статус:</strong> {{ product.get_status_display }}</p>
+                <p><strong>Артикул:</strong> {{ product.article }}</p>
+
+                {% if product.description %}
+                    <p><strong>Описание:</strong> {{ product.description }}</p>
+                {% endif %}
+
+                {% if product.composition %}
+                    <p><strong>Состав:</strong> {{ product.composition }}</p>
+                {% endif %}
+
+                <a href="{% url 'add_to_cart' product.id %}" class="btn">Добавить в корзину</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

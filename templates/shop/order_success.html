@@ -1,0 +1,15 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Заказ оформлен{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="card">
+            <h1>Спасибо за заказ!</h1>
+            <p>Ваш заказ успешно оформлен. Мы свяжемся с вами в ближайшее время.</p>
+            <a href="{% url 'catalog' %}" class="btn">Вернуться в каталог</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

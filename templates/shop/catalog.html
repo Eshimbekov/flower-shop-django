@@ -1,0 +1,54 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1>Каталог</h1>
+
+        <form method="get" class="filters">
+            <select name="category">
+                <option value="">Все категории</option>
+                {% for category in categories %}
+                    <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select name="size">
+                <option value="">Все размеры</option>
+                <option value="small" {% if selected_size == 'small' %}selected{% endif %}>Малый</option>
+                <option value="medium" {% if selected_size == 'medium' %}selected{% endif %}>Средний</option>
+                <option value="large" {% if selected_size == 'large' %}selected{% endif %}>Большой</option>
+            </select>
+
+            <select name="sort">
+                <option value="">Без сортировки</option>
+                <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Цена ↑</option>
+                <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Цена ↓</option>
+                <option value="newest" {% if selected_sort == 'newest' %}selected{% endif %}>Новинки</option>
+            </select>
+
+            <button type="submit" class="btn">Применить</button>
+        </form>
+
+        <div class="grid">
+            {% for product in products %}
+                <div class="card product-card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% endif %}
+                    <h3>{{ product.title }}</h3>
+                    <p>{{ product.price }} сом</p>
+                    <a href="{% url 'product_detail' product.slug %}" class="btn">Подробнее</a>
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn">В корзину</a>
+                </div>
+            {% empty %}
+                <p>Товары не найдены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

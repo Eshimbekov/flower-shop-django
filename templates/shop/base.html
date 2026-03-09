@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flower Shop{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-wrap">
+        <a href="{% url 'home' %}" class="logo">
+            Flower<span>Shop</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" type="button">
+            ☰
+        </button>
+
+        <nav class="nav" id="mobileMenu">
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'catalog' %}">Каталог</a>
+            <a href="{% url 'about' %}">О нас</a>
+            <a href="{% url 'contacts' %}">Контакты</a>
+            <a href="{% url 'cart' %}" class="cart-link">
+    🛒 Корзина ({{ cart_count }})
+</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-col">
+            <h3>Flower Shop</h3>
+            <p>Свежие цветы и красивые букеты с доставкой.</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Навигация</h4>
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'catalog' %}">Каталог</a>
+            <a href="{% url 'about' %}">О нас</a>
+            <a href="{% url 'contacts' %}">Контакты</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Контакты</h4>
+            <p>📍 Джалал-Абад</p>
+            <p>📞 +996 555 000 000</p>
+            <p>✉ info@flowershop.kg</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Flower Shop. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', function () {
+        mobileMenu.classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>

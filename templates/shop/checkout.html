@@ -1,0 +1,38 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1>Оформление заказа</h1>
+
+        <div class="checkout-layout">
+            <div class="card">
+                <h2>Ваши данные</h2>
+
+                <form method="post" class="checkout-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn">Подтвердить заказ</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Ваш заказ</h2>
+
+                {% for item in cart_items %}
+                    <div class="checkout-item">
+                        <p><strong>{{ item.title }}</strong></p>
+                        <p>{{ item.quantity }} × {{ item.price }} сом</p>
+                        <p>Сумма: {{ item.subtotal }} сом</p>
+                    </div>
+                    <hr>
+                {% endfor %}
+
+                <h3>Итого: {{ total_price }} сом</h3>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
